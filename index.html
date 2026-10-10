@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; manifest-src data:; connect-src 'self'; base-uri 'self'; form-action 'self';">
 <title>Romi Estudio</title>
 <meta name="description" content="La existencia es un código, bien codificado. Portafolio de proyectos de Romi Estudio.">
 <meta name="theme-color" content="#101210">
 
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Romi Estudio">
 <meta property="og:description" content="La existencia es un código, bien codificado. Portafolio de proyectos de Romi Estudio.">
@@ -15,17 +15,13 @@
 <meta name="twitter:title" content="Romi Estudio">
 <meta name="twitter:description" content="La existencia es un código, bien codificado.">
 
-<!-- Favicon (RE mark, naranja sobre carbón) -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f08a3e'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-weight='700' font-size='26' fill='%231c1108' text-anchor='middle'%3ERE%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f08a3e'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-weight='700' font-size='26' fill='%231c1108' text-anchor='middle'%3ERE%3C/text%3E%3C/svg%3E">
-
 <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Romi%20Estudio%22,%22short_name%22:%22Romi%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23101210%22,%22theme_color%22:%22%23101210%22}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-
-<script type="module" src="https://unpkg.com/morphicons/element"></script>
 
 <style>
   :root{
@@ -55,6 +51,7 @@
   }
   h1,h2,h3{font-family:var(--font-display); text-wrap:balance;}
   button{font-family:inherit; cursor:pointer;}
+  svg.ico{display:block; flex-shrink:0;}
   ::selection{background:var(--primary); color:var(--primary-fg);}
   :focus-visible{outline:2px solid var(--primary); outline-offset:3px;}
 
@@ -75,6 +72,25 @@
 
   main{max-width:1120px; margin:0 auto; padding:0 20px;}
   @media(min-width:640px){main{padding:0 32px;}}
+
+  /* ===== loading skeleton ===== */
+  #loader{
+    position:fixed; inset:0; z-index:100; background:var(--bg);
+    display:flex; flex-direction:column; align-items:center; padding:120px 20px 0;
+    transition:opacity .4s ease; gap:16px;
+  }
+  #loader.hide{opacity:0; pointer-events:none;}
+  .sk{
+    border-radius:10px; width:100%; max-width:640px;
+    background:linear-gradient(100deg, var(--surface) 30%, var(--elevated) 50%, var(--surface) 70%);
+    background-size:200% 100%; animation:shimmer 1.3s ease-in-out infinite;
+  }
+  @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+  .sk-title{height:48px; max-width:360px;}
+  .sk-line{height:16px; max-width:460px; margin-top:4px;}
+  .sk-row{display:flex; gap:12px; margin-top:28px; width:100%; max-width:640px;}
+  .sk-card{height:140px; flex:1; border-radius:18px;}
+  @media(prefers-reduced-motion:reduce){.sk{animation:none;}}
 
   /* header */
   header{
@@ -107,10 +123,18 @@
   }
   .icon-btn:hover{background:var(--elevated);}
   .icon-btn:active{transform:scale(.94);}
+  .lang-btn{
+    width:44px; height:44px; border-radius:999px; border:1px solid var(--border);
+    background:var(--surface); color:var(--fg); display:grid; place-items:center;
+    font-size:.78rem; font-weight:700; letter-spacing:.02em;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .lang-btn:hover{background:var(--elevated);}
+  .lang-btn:active{transform:scale(.94);}
   .menu-btn{display:grid;}
   @media(min-width:768px){.menu-btn{display:none;}}
-  [data-theme="light"] .icon-sun{display:block;} [data-theme="light"] .icon-moon{display:none;}
-  [data-theme="dark"] .icon-sun{display:none;} [data-theme="dark"] .icon-moon{display:block;}
+  .theme-icon-moon{display:none;}
+  [data-theme="light"] .theme-icon-sun{display:none;} [data-theme="light"] .theme-icon-moon{display:block;}
 
   .mobile-menu{position:fixed; inset:0; z-index:50; display:none;}
   .mobile-menu.open{display:block;}
@@ -161,7 +185,6 @@
   .studio-list .dot{width:6px; height:6px; border-radius:50%; background:var(--faint); flex-shrink:0;}
   .studio-list .dot.live{background:var(--primary);}
 
-  /* principles */
   .principles{border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:40px 0;}
   .principles ol{display:grid; gap:24px; list-style:none;}
   @media(min-width:768px){.principles ol{grid-template-columns:repeat(3,1fr);}}
@@ -175,7 +198,6 @@
   .section-head h2{font-size:clamp(1.9rem,5vw,2.8rem); font-weight:600; margin-top:10px;}
   .section-sub{margin-top:10px; font-size:.88rem; color:var(--muted);}
 
-  /* filters */
   .proj-top{display:flex; flex-direction:column; gap:20px;}
   @media(min-width:640px){.proj-top{flex-direction:row; align-items:flex-end; justify-content:space-between;}}
   .filters{display:flex; flex-wrap:wrap; gap:8px;}
@@ -208,11 +230,10 @@
   .tags{display:flex; flex-wrap:wrap; gap:8px;}
   .tag{font-size:.74rem; color:var(--muted); border:1px solid var(--border); padding:4px 11px; border-radius:999px;}
   .proj-link{display:inline-flex; align-items:center; gap:6px; height:40px; width:fit-content; font-size:.88rem; font-weight:600; color:var(--primary); text-decoration:none;}
-  .proj-link morph-icon{transition:transform .2s ease;}
-  .proj-link:hover morph-icon{transform:translate(2px,-2px);}
+  .proj-link svg{transition:transform .2s ease;}
+  .proj-link:hover svg{transform:translate(2px,-2px);}
   .proj-soon{font-size:.88rem; font-weight:500; color:var(--faint); height:40px; display:flex; align-items:center;}
 
-  /* about */
   .about-grid{margin-top:36px; display:grid; gap:36px;}
   @media(min-width:1024px){.about-grid{grid-template-columns:1.2fr .8fr;}}
   .about-grid p{max-width:60ch; font-size:1rem; line-height:1.7; color:var(--muted);}
@@ -223,7 +244,6 @@
   .stat-card dt{font-size:.88rem; color:var(--muted);}
   .stat-card dd{margin-top:8px; font-family:var(--font-display); font-size:2.2rem; font-weight:600; color:var(--primary);}
 
-  /* contact */
   .contact-card{border-radius:26px; border:1px solid var(--border); padding:40px 24px; position:relative; overflow:hidden;}
   @media(min-width:640px){.contact-card{padding:56px 48px;}}
   .contact-card h2{font-size:clamp(1.8rem,5vw,2.6rem); font-weight:600;}
@@ -232,7 +252,6 @@
 
   footer{border-top:1px solid var(--border); padding:32px 20px; text-align:center; font-size:.85rem; color:var(--faint); padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));}
 
-  /* back to top */
   #backTop{
     position:fixed; right:18px; bottom:calc(18px + env(safe-area-inset-bottom,0px)); z-index:30;
     width:48px; height:48px; border-radius:50%; border:1px solid var(--border);
@@ -243,7 +262,6 @@
   #backTop.show{opacity:1; pointer-events:auto; transform:none;}
   #backTop:hover{background:var(--elevated);}
 
-  /* modal */
   .modal-overlay{
     position:fixed; inset:0; z-index:60; display:none;
     background:color-mix(in srgb, #000 55%, transparent);
@@ -276,6 +294,16 @@
 </head>
 <body>
 
+<div id="loader" aria-hidden="true">
+  <div class="sk sk-title"></div>
+  <div class="sk sk-line" style="width:90%;max-width:520px;"></div>
+  <div class="sk-row">
+    <div class="sk sk-card"></div>
+    <div class="sk sk-card"></div>
+    <div class="sk sk-card"></div>
+  </div>
+</div>
+
 <div class="ambient"></div>
 
 <header class="glass">
@@ -285,33 +313,36 @@
       <span class="brand-name">Romi Estudio</span>
     </a>
     <nav class="links" id="navLinks" aria-label="Secciones">
-      <a href="#inicio" data-nav="inicio">Inicio</a>
-      <a href="#proyectos" data-nav="proyectos">Proyectos</a>
-      <a href="#sobre-mi" data-nav="sobre-mi">Sobre mí</a>
-      <a href="#contacto" data-nav="contacto">Contacto</a>
+      <a href="#inicio" data-nav="inicio"></a>
+      <a href="#proyectos" data-nav="proyectos"></a>
+      <a href="#sobre-mi" data-nav="sobre-mi"></a>
+      <a href="#contacto" data-nav="contacto"></a>
     </nav>
     <div class="header-actions">
-      <button class="icon-btn" id="themeToggle" aria-label="Cambiar tema">
-        <morph-icon class="icon-sun" name="sun" size="18"></morph-icon>
-        <morph-icon class="icon-moon" name="moon" size="18"></morph-icon>
+      <button class="lang-btn" id="langToggle"></button>
+      <button class="icon-btn" id="themeToggle">
+        <svg class="ico theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="ico theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
       </button>
-      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">
-        <morph-icon name="menu" size="18"></morph-icon>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-expanded="false">
+        <svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </div>
   </div>
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-  <button class="backdrop" id="menuBackdrop" aria-label="Cerrar menú"></button>
+  <button class="backdrop" id="menuBackdrop"></button>
   <nav class="panel" aria-label="Secciones">
     <div class="close-row">
-      <button class="icon-btn" id="menuClose" aria-label="Cerrar menú"><morph-icon name="x" size="18"></morph-icon></button>
+      <button class="icon-btn" id="menuClose">
+        <svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
     </div>
-    <a href="#inicio">Inicio</a>
-    <a href="#proyectos">Proyectos</a>
-    <a href="#sobre-mi">Sobre mí</a>
-    <a href="#contacto">Contacto</a>
+    <a href="#inicio" data-nav-m="inicio"></a>
+    <a href="#proyectos" data-nav-m="proyectos"></a>
+    <a href="#sobre-mi" data-nav-m="sobre-mi"></a>
+    <a href="#contacto" data-nav-m="contacto"></a>
   </nav>
 </div>
 
@@ -320,16 +351,16 @@
   <section class="hero" id="inicio">
     <div class="hero-grid">
       <div class="reveal">
-        <p class="eyebrow">Desarrollador independiente</p>
-        <h1>Romi<br>Estudio</h1>
-        <blockquote><p>"La existencia es un código, bien codificado."</p></blockquote>
+        <p class="eyebrow" id="heroEyebrow"></p>
+        <h1 id="heroTitle">Romi<br>Estudio</h1>
+        <blockquote><p id="heroQuote"></p></blockquote>
         <div class="hero-actions">
-          <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
-          <a href="#contacto" class="btn btn-ghost">Contactar</a>
+          <a href="#proyectos" class="btn btn-primary" id="btnViewProjects"></a>
+          <a href="#contacto" class="btn btn-ghost" id="btnContact"></a>
         </div>
       </div>
       <div class="reveal glass studio-card">
-        <p class="label">En el estudio</p>
+        <p class="label" id="studioLabel"></p>
         <div class="studio-list" id="studioList"></div>
       </div>
     </div>
@@ -342,14 +373,14 @@
   <section id="proyectos">
     <div class="proj-top reveal">
       <div class="section-head">
-        <p class="eyebrow">Trabajo</p>
-        <h2>Proyectos</h2>
+        <p class="eyebrow" id="workEyebrow"></p>
+        <h2 id="projectsHeading"></h2>
         <p class="section-sub" id="projStats"></p>
       </div>
-      <div class="filters" role="group" aria-label="Filtrar proyectos" id="filters">
-        <button class="filter-btn active" data-filter="todos">Todos</button>
-        <button class="filter-btn" data-filter="app">Apps</button>
-        <button class="filter-btn" data-filter="web">Web</button>
+      <div class="filters" role="group" id="filters">
+        <button class="filter-btn active" data-filter="todos"></button>
+        <button class="filter-btn" data-filter="app"></button>
+        <button class="filter-btn" data-filter="web"></button>
       </div>
     </div>
     <div class="proj-grid" id="projGrid"></div>
@@ -357,21 +388,21 @@
 
   <section id="sobre-mi">
     <div class="section-head reveal">
-      <p class="eyebrow">Perfil</p>
-      <h2>Sobre mí</h2>
+      <p class="eyebrow" id="profileEyebrow"></p>
+      <h2 id="aboutHeading"></h2>
     </div>
     <div class="about-grid reveal">
       <div>
-        <p>Diseño y construyo aplicaciones web pensadas para resolver problemas concretos, con atención al detalle en cada interacción.</p>
-        <p>Cada proyecto bajo Romi Estudio tiene su propia identidad visual, pero comparte una misma forma de trabajar: código limpio, interfaces modernas y soluciones listas para producción.</p>
+        <p id="aboutP1"></p>
+        <p id="aboutP2"></p>
       </div>
       <dl class="stat-grid">
         <div class="stat-card">
-          <dt>Proyectos</dt>
+          <dt id="statProjectsLabel"></dt>
           <dd id="statProjects">0</dd>
         </div>
         <div class="stat-card">
-          <dt>Independiente</dt>
+          <dt id="statIndependentLabel"></dt>
           <dd>100%</dd>
         </div>
       </dl>
@@ -380,15 +411,17 @@
 
   <section id="contacto">
     <div class="contact-card glass reveal">
-      <p class="eyebrow">Contacto</p>
-      <h2>Hablemos</h2>
-      <p>¿Tenés un proyecto en mente o querés saber más sobre alguna app? Escribime.</p>
+      <p class="eyebrow" id="contactEyebrow"></p>
+      <h2 id="contactHeading"></h2>
+      <p id="contactP"></p>
       <div class="contact-actions">
         <a href="#" class="btn btn-primary" id="emailLink" target="_blank" rel="noopener">
-          <morph-icon name="mail" size="16"></morph-icon> Enviar correo
+          <svg class="ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+          <span id="emailBtnText"></span>
         </a>
         <a href="#" class="btn btn-ghost" id="igLink" target="_blank" rel="noopener">
-          <morph-icon name="instagram" size="16"></morph-icon> Instagram
+          <svg class="ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          <span id="igBtnText"></span>
         </a>
       </div>
     </div>
@@ -396,21 +429,25 @@
 
 </main>
 
-<footer>© <span id="year"></span> Romi Estudio. Todos los proyectos, en un solo lugar.</footer>
+<footer id="footerText"></footer>
 
-<button id="backTop" aria-label="Volver arriba"><morph-icon name="chevron-up" size="20"></morph-icon></button>
+<button id="backTop">
+  <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" role="dialog" aria-modal="true" id="modalBox">
     <div class="modal-top">
-      <div class="modal-icon" id="modalIcon"><morph-icon name="globe" size="22"></morph-icon></div>
-      <button class="modal-close" id="modalClose" aria-label="Cerrar"><morph-icon name="x" size="16"></morph-icon></button>
+      <div class="modal-icon" id="modalIcon"></div>
+      <button class="modal-close" id="modalClose">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
     </div>
     <h3 id="modalTitle"></h3>
     <div class="modal-status" id="modalStatus"></div>
     <div class="modal-shot" id="modalShot">
-      <morph-icon name="image" size="26"></morph-icon>
-      <span>Captura próximamente</span>
+      <svg class="ico" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+      <span id="modalShotText"></span>
     </div>
     <p class="full-desc" id="modalDesc"></p>
     <div class="tags" id="modalTags"></div>
@@ -430,110 +467,256 @@
   };
 
   const principles = [
-    { title: "Código limpio", text: "Estructura clara, sin ruido, fácil de mantener." },
-    { title: "Interfaces modernas", text: "Cada interacción pensada para usarse de verdad." },
-    { title: "Listo para producción", text: "Sale del estudio y se puede usar." }
+    { es:{title:"Código limpio", text:"Estructura clara, sin ruido, fácil de mantener."}, en:{title:"Clean code", text:"Clear structure, no noise, easy to maintain."} },
+    { es:{title:"Interfaces modernas", text:"Cada interacción pensada para usarse de verdad."}, en:{title:"Modern interfaces", text:"Every interaction designed to actually be used."} },
+    { es:{title:"Listo para producción", text:"Sale del estudio y se puede usar."}, en:{title:"Production ready", text:"Leaves the studio ready to use."} }
   ];
 
   const projects = [
     {
-      slug: "vault", title: "VAULT", type: "app",
-      description: "Gestor de contraseñas seguro con cifrado local.",
-      fullDescription: "Gestor de contraseñas con cifrado local: tus credenciales nunca salen de tu dispositivo sin pasar por cifrado. Pensado para uso diario, rápido y sin fricción.",
-      href: "https://vault-v13-1.vercel.app",
-      tags: ["Seguridad", "PWA"]
+      slug:"vault", title:"VAULT", type:"app", href:"https://vault-v13-1.vercel.app",
+      es:{ description:"Gestor de contraseñas seguro con cifrado local.",
+           fullDescription:"Gestor de contraseñas con cifrado local: tus credenciales nunca salen de tu dispositivo sin pasar por cifrado. Pensado para uso diario, rápido y sin fricción.",
+           tags:["Seguridad","PWA"] },
+      en:{ description:"Secure password manager with local encryption.",
+           fullDescription:"Password manager with local encryption: your credentials never leave your device unencrypted. Built for daily use, fast and frictionless.",
+           tags:["Security","PWA"] }
     },
     {
-      slug: "recibo", title: "Recibo", type: "app",
-      description: "Rastreador de suscripciones y gastos recurrentes.",
-      fullDescription: "Llevá el control de todas tus suscripciones y pagos recurrentes en un solo lugar: fechas de cobro, montos y recordatorios para que nada te agarre desprevenido.",
-      href: "https://resivo-taupe.vercel.app",
-      tags: ["Finanzas", "PWA"]
+      slug:"recibo", title:"Recibo", type:"app", href:"https://resivo-taupe.vercel.app",
+      es:{ description:"Rastreador de suscripciones y gastos recurrentes.",
+           fullDescription:"Llevá el control de todas tus suscripciones y pagos recurrentes en un solo lugar: fechas de cobro, montos y recordatorios para que nada te agarre desprevenido.",
+           tags:["Finanzas","PWA"] },
+      en:{ description:"Subscription and recurring expense tracker.",
+           fullDescription:"Keep track of every subscription and recurring payment in one place: billing dates, amounts, and reminders so nothing catches you off guard.",
+           tags:["Finance","PWA"] }
     },
     {
-      slug: "boveda", title: "Bóveda de Documentos", type: "app",
-      description: "Almacenamiento cifrado de documentos personales.",
-      fullDescription: "Guardá documentos personales importantes con cifrado de extremo a extremo. Acceso rápido cuando lo necesitás, protegido el resto del tiempo.",
-      href: null,
-      tags: ["Seguridad", "Documentos"]
+      slug:"boveda", title:"Bóveda de Documentos", type:"app", href:null,
+      es:{ description:"Almacenamiento cifrado de documentos personales.",
+           fullDescription:"Guardá documentos personales importantes con cifrado de extremo a extremo. Acceso rápido cuando lo necesitás, protegido el resto del tiempo.",
+           tags:["Seguridad","Documentos"] },
+      en:{ description:"Encrypted storage for personal documents.",
+           fullDescription:"Store important personal documents with end-to-end encryption. Quick access when you need it, protected the rest of the time.",
+           tags:["Security","Documents"] }
     },
     {
-      slug: "sorteo-rd", title: "Sorteo RD", type: "web",
-      description: "Venta y gestión de números para sorteos.",
-      fullDescription: "Plataforma para organizar sorteos: venta de números, seguimiento de compradores y gestión completa del evento desde un solo panel.",
-      href: null,
-      tags: ["Ventas", "PWA"]
+      slug:"sorteo-rd", title:"Sorteo RD", type:"web", href:null,
+      es:{ description:"Venta y gestión de números para sorteos.",
+           fullDescription:"Plataforma para organizar sorteos: venta de números, seguimiento de compradores y gestión completa del evento desde un solo panel.",
+           tags:["Ventas","PWA"] },
+      en:{ description:"Raffle number sales and management.",
+           fullDescription:"A platform to run raffles: number sales, buyer tracking, and full event management from a single dashboard.",
+           tags:["Sales","PWA"] }
     },
     {
-      slug: "buttonlab", title: "ButtonLab", type: "web",
-      description: "Editor visual para diseñar y exportar componentes de UI.",
-      fullDescription: "Editor visual para diseñar botones y componentes de interfaz, con exportación lista para usar en tus propios proyectos.",
-      href: "https://grok-workspace-amber-three.vercel.app/",
-      tags: ["UI", "Herramienta"]
+      slug:"buttonlab", title:"ButtonLab", type:"web", href:"https://grok-workspace-amber-three.vercel.app/",
+      es:{ description:"Editor visual para diseñar y exportar componentes de UI.",
+           fullDescription:"Editor visual para diseñar botones y componentes de interfaz, con exportación lista para usar en tus propios proyectos.",
+           tags:["UI","Herramienta"] },
+      en:{ description:"Visual editor to design and export UI components.",
+           fullDescription:"Visual editor for designing buttons and interface components, with ready-to-use export for your own projects.",
+           tags:["UI","Tool"] }
     }
   ];
   /* ====================================== */
 
-  const icon = (type) => type === 'app' ? 'smartphone' : 'globe';
+  const STR = {
+    es:{
+      eyebrow:"Desarrollador independiente", heroQuote:"\u201CLa existencia es un código, bien codificado.\u201D",
+      viewProjects:"Ver proyectos", contactBtn:"Contactar", studioLabel:"En el estudio",
+      navInicio:"Inicio", navProyectos:"Proyectos", navSobre:"Sobre mí", navContacto:"Contacto",
+      workEyebrow:"Trabajo", projectsHeading:"Proyectos",
+      stats:(p,c)=>`${p} publicados · ${c} en camino`,
+      filterAll:"Todos", filterApps:"Apps", filterWeb:"Web",
+      statusLive:"En vivo", statusDev:"En desarrollo", soon:"Pronto",
+      linkDownload:"Descargar", linkVisit:"Visitar",
+      profileEyebrow:"Perfil", aboutHeading:"Sobre mí",
+      aboutP1:"Diseño y construyo aplicaciones web pensadas para resolver problemas concretos, con atención al detalle en cada interacción.",
+      aboutP2:"Cada proyecto bajo Romi Estudio tiene su propia identidad visual, pero comparte una misma forma de trabajar: código limpio, interfaces modernas y soluciones listas para producción.",
+      statProjectsLabel:"Proyectos", statIndependentLabel:"Independiente",
+      contactEyebrow:"Contacto", contactHeading:"Hablemos",
+      contactP:"¿Tenés un proyecto en mente o querés saber más sobre alguna app? Escribime.",
+      emailBtn:"Enviar correo", modalShotText:"Captura próximamente", modalSoon:"Disponible pronto",
+      footer:(y)=>`© ${y} Romi Estudio. Todos los proyectos, en un solo lugar.`,
+      langNext:"EN"
+    },
+    en:{
+      eyebrow:"Independent developer", heroQuote:"\u201CExistence is code, well written.\u201D",
+      viewProjects:"View projects", contactBtn:"Get in touch", studioLabel:"In the studio",
+      navInicio:"Home", navProyectos:"Projects", navSobre:"About", navContacto:"Contact",
+      workEyebrow:"Work", projectsHeading:"Projects",
+      stats:(p,c)=>`${p} published · ${c} in progress`,
+      filterAll:"All", filterApps:"Apps", filterWeb:"Web",
+      statusLive:"Live", statusDev:"In development", soon:"Coming soon",
+      linkDownload:"Download", linkVisit:"Visit",
+      profileEyebrow:"Profile", aboutHeading:"About me",
+      aboutP1:"I design and build web apps meant to solve real problems, with attention to detail in every interaction.",
+      aboutP2:"Every project under Romi Estudio has its own visual identity, but shares one way of working: clean code, modern interfaces, and production-ready solutions.",
+      statProjectsLabel:"Projects", statIndependentLabel:"Independent",
+      contactEyebrow:"Contact", contactHeading:"Let's talk",
+      contactP:"Have a project in mind or want to know more about an app? Reach out.",
+      emailBtn:"Send email", modalShotText:"Screenshot coming soon", modalSoon:"Available soon",
+      footer:(y)=>`© ${y} Romi Estudio. Every project, in one place.`,
+      langNext:"ES"
+    }
+  };
+
+  let lang = 'es';
+  try { const saved = localStorage.getItem('romi-lang'); if (saved === 'es' || saved === 'en') lang = saved; } catch(e) {}
+
+  const ICON = {
+    smartphone:'<svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
+    globe:'<svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg>',
+    arrow:'<svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>'
+  };
+  const icon = (type) => type === 'app' ? ICON.smartphone : ICON.globe;
   let currentFilter = 'todos';
 
-  // Hero studio list
-  const studioList = document.getElementById('studioList');
-  projects.forEach((p, i) => {
-    const a = document.createElement('a');
-    a.href = `#${p.slug}`;
-    a.innerHTML = `<span style="display:flex;align-items:baseline;gap:12px;min-width:0;">
-        <span class="idx">${String(i+1).padStart(2,'0')}</span>
-        <span class="ttl">${p.title}</span>
-      </span><span class="dot ${p.href ? 'live' : ''}"></span>`;
-    studioList.appendChild(a);
-  });
+  function t(key){ return STR[lang][key]; }
 
-  // Principles
-  const principlesList = document.getElementById('principlesList');
-  principles.forEach((p, i) => {
-    const li = document.createElement('li');
-    li.className = 'reveal';
-    li.innerHTML = `<p class="idx">${String(i+1).padStart(2,'0')}</p><h3>${p.title}</h3><p>${p.text}</p>`;
-    principlesList.appendChild(li);
-  });
+  function renderStudioList(){
+    const el = document.getElementById('studioList');
+    el.innerHTML = '';
+    projects.forEach((p,i) => {
+      const a = document.createElement('a');
+      a.href = `#${p.slug}`;
+      a.innerHTML = `<span style="display:flex;align-items:baseline;gap:12px;min-width:0;">
+          <span class="idx">${String(i+1).padStart(2,'0')}</span>
+          <span class="ttl">${p.title}</span>
+        </span><span class="dot ${p.href ? 'live' : ''}"></span>`;
+      el.appendChild(a);
+    });
+  }
 
-  // Project stats
+  function renderPrinciples(){
+    const el = document.getElementById('principlesList');
+    el.innerHTML = '';
+    principles.forEach((p,i) => {
+      const li = document.createElement('li');
+      li.className = 'reveal in';
+      li.innerHTML = `<p class="idx">${String(i+1).padStart(2,'0')}</p><h3>${p[lang].title}</h3><p>${p[lang].text}</p>`;
+      el.appendChild(li);
+    });
+  }
+
   function updateStats(){
     const published = projects.filter(p => p.href).length;
-    document.getElementById('projStats').textContent = `${published} publicados · ${projects.length - published} en camino`;
+    document.getElementById('projStats').textContent = t('stats')(published, projects.length - published);
     document.getElementById('statProjects').textContent = projects.length;
   }
-  updateStats();
 
-  // Project grid
-  const grid = document.getElementById('projGrid');
   function renderGrid(){
+    const grid = document.getElementById('projGrid');
     grid.innerHTML = '';
     const visible = projects.filter(p => currentFilter === 'todos' || p.type === currentFilter);
     visible.forEach(p => {
+      const d = p[lang];
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'proj-card glass reveal in';
       card.dataset.slug = p.slug;
       card.innerHTML = `
         <div class="proj-top-row">
-          <div class="proj-icon"><morph-icon name="${icon(p.type)}" size="20"></morph-icon></div>
+          <div class="proj-icon">${icon(p.type)}</div>
           <span class="proj-type">${p.type}</span>
         </div>
         <h3>${p.title}</h3>
-        <p class="desc">${p.description}</p>
-        <span class="proj-status ${p.href ? 'live' : 'dev'}"><span class="dot"></span>${p.href ? 'En vivo' : 'En desarrollo'}</span>
-        <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <p class="desc">${d.description}</p>
+        <span class="proj-status ${p.href ? 'live' : 'dev'}"><span class="dot"></span>${p.href ? t('statusLive') : t('statusDev')}</span>
+        <div class="tags">${d.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
         ${p.href
-          ? `<span class="proj-link">${p.type === 'app' ? 'Descargar' : 'Visitar'} <morph-icon name="arrow-up-right" size="14"></morph-icon></span>`
-          : `<span class="proj-soon">Pronto</span>`}
+          ? `<span class="proj-link">${p.type === 'app' ? t('linkDownload') : t('linkVisit')} ${ICON.arrow}</span>`
+          : `<span class="proj-soon">${t('soon')}</span>`}
       `;
       card.addEventListener('click', () => openModal(p));
       grid.appendChild(card);
     });
   }
-  renderGrid();
+
+  const overlay = document.getElementById('modalOverlay');
+  function openModal(p){
+    const d = p[lang];
+    document.getElementById('modalIcon').innerHTML = icon(p.type);
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalStatus').innerHTML =
+      `<span class="proj-status ${p.href ? 'live' : 'dev'}"><span class="dot"></span>${p.href ? t('statusLive') : t('statusDev')}</span>`;
+    document.getElementById('modalShotText').textContent = t('modalShotText');
+    document.getElementById('modalDesc').textContent = d.fullDescription;
+    document.getElementById('modalTags').innerHTML = d.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+    document.getElementById('modalActions').innerHTML = p.href
+      ? `<a class="btn btn-primary" href="${p.href}" target="_blank" rel="noopener">${p.type === 'app' ? t('linkDownload') : t('linkVisit')} ${ICON.arrow}</a>`
+      : `<span class="proj-soon">${t('modalSoon')}</span>`;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+  function applyStaticText(){
+    document.documentElement.lang = lang;
+    document.getElementById('heroEyebrow').textContent = t('eyebrow');
+    document.getElementById('heroQuote').textContent = t('heroQuote');
+    document.getElementById('btnViewProjects').textContent = t('viewProjects');
+    document.getElementById('btnContact').textContent = t('contactBtn');
+    document.getElementById('studioLabel').textContent = t('studioLabel');
+    document.querySelector('[data-nav="inicio"]').textContent = t('navInicio');
+    document.querySelector('[data-nav="proyectos"]').textContent = t('navProyectos');
+    document.querySelector('[data-nav="sobre-mi"]').textContent = t('navSobre');
+    document.querySelector('[data-nav="contacto"]').textContent = t('navContacto');
+    document.querySelector('[data-nav-m="inicio"]').textContent = t('navInicio');
+    document.querySelector('[data-nav-m="proyectos"]').textContent = t('navProyectos');
+    document.querySelector('[data-nav-m="sobre-mi"]').textContent = t('navSobre');
+    document.querySelector('[data-nav-m="contacto"]').textContent = t('navContacto');
+    document.getElementById('workEyebrow').textContent = t('workEyebrow');
+    document.getElementById('projectsHeading').textContent = t('projectsHeading');
+    document.querySelector('[data-filter="todos"]').textContent = t('filterAll');
+    document.querySelector('[data-filter="app"]').textContent = t('filterApps');
+    document.querySelector('[data-filter="web"]').textContent = t('filterWeb');
+    document.getElementById('profileEyebrow').textContent = t('profileEyebrow');
+    document.getElementById('aboutHeading').textContent = t('aboutHeading');
+    document.getElementById('aboutP1').textContent = t('aboutP1');
+    document.getElementById('aboutP2').textContent = t('aboutP2');
+    document.getElementById('statProjectsLabel').textContent = t('statProjectsLabel');
+    document.getElementById('statIndependentLabel').textContent = t('statIndependentLabel');
+    document.getElementById('contactEyebrow').textContent = t('contactEyebrow');
+    document.getElementById('contactHeading').textContent = t('contactHeading');
+    document.getElementById('contactP').textContent = t('contactP');
+    document.getElementById('emailBtnText').textContent = t('emailBtn');
+    document.getElementById('igBtnText').textContent = '@' + contact.instagramHandle;
+    document.getElementById('footerText').textContent = t('footer')(new Date().getFullYear());
+    document.getElementById('langToggle').textContent = t('langNext');
+
+    const ariaMap = {
+      es:{theme:'Cambiar tema', menu:'Abrir menú', close:'Cerrar menú', backTop:'Volver arriba', lang:'Cambiar a inglés'},
+      en:{theme:'Toggle theme', menu:'Open menu', close:'Close menu', backTop:'Back to top', lang:'Switch to Spanish'}
+    };
+    const a = ariaMap[lang];
+    document.getElementById('themeToggle').setAttribute('aria-label', a.theme);
+    document.getElementById('menuBtn').setAttribute('aria-label', a.menu);
+    document.getElementById('menuClose').setAttribute('aria-label', a.close);
+    document.getElementById('backTop').setAttribute('aria-label', a.backTop);
+    document.getElementById('langToggle').setAttribute('aria-label', a.lang);
+  }
+
+  function renderAll(){
+    applyStaticText();
+    renderStudioList();
+    renderPrinciples();
+    updateStats();
+    renderGrid();
+  }
+  renderAll();
+
+  document.getElementById('langToggle').addEventListener('click', () => {
+    lang = lang === 'es' ? 'en' : 'es';
+    try { localStorage.setItem('romi-lang', lang); } catch(e) {}
+    renderAll();
+  });
 
   document.getElementById('filters').addEventListener('click', (e) => {
     const btn = e.target.closest('.filter-btn');
@@ -544,37 +727,9 @@
     renderGrid();
   });
 
-  // Modal
-  const overlay = document.getElementById('modalOverlay');
-  function openModal(p){
-    document.getElementById('modalIcon').innerHTML = `<morph-icon name="${icon(p.type)}" size="22"></morph-icon>`;
-    document.getElementById('modalTitle').textContent = p.title;
-    document.getElementById('modalStatus').innerHTML =
-      `<span class="proj-status ${p.href ? 'live' : 'dev'}"><span class="dot"></span>${p.href ? 'En vivo' : 'En desarrollo'}</span>`;
-    document.getElementById('modalDesc').textContent = p.fullDescription;
-    document.getElementById('modalTags').innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
-    document.getElementById('modalActions').innerHTML = p.href
-      ? `<a class="btn btn-primary" href="${p.href}" target="_blank" rel="noopener">${p.type === 'app' ? 'Descargar' : 'Visitar'} <morph-icon name="arrow-up-right" size="14"></morph-icon></a>`
-      : `<span class="proj-soon">Disponible pronto</span>`;
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal(){
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeMenu(); } });
-
-  // Contact links
   document.getElementById('emailLink').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contact.email)}`;
   document.getElementById('igLink').href = contact.instagram;
 
-  // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Mobile menu
   const mobileMenu = document.getElementById('mobileMenu');
   const menuBtn = document.getElementById('menuBtn');
   function openMenu(){ mobileMenu.classList.add('open'); menuBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
@@ -583,23 +738,22 @@
   document.getElementById('menuBackdrop').addEventListener('click', closeMenu);
   document.getElementById('menuClose').addEventListener('click', closeMenu);
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeMenu(); } });
 
-  // Theme toggle (persisted)
   const root = document.documentElement;
   function applyTheme(theme){
     root.setAttribute('data-theme', theme);
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f4f1ea' : '#101210');
     try { localStorage.setItem('romi-theme', theme); } catch(e) {}
   }
-  let saved = null;
-  try { saved = localStorage.getItem('romi-theme'); } catch(e) {}
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem('romi-theme'); } catch(e) {}
   const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  applyTheme(saved === 'light' || saved === 'dark' ? saved : (prefersLight ? 'light' : 'dark'));
+  applyTheme(savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : (prefersLight ? 'light' : 'dark'));
   document.getElementById('themeToggle').addEventListener('click', () => {
     applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
   });
 
-  // Active section nav highlight
   const navLinks = document.querySelectorAll('[data-nav]');
   const sections = ['inicio','proyectos','sobre-mi','contacto'].map(id => document.getElementById(id)).filter(Boolean);
   const sectionIO = new IntersectionObserver((entries) => {
@@ -612,18 +766,32 @@
   }, { rootMargin:'-30% 0px -55% 0px', threshold:[0.15,0.4,0.7] });
   sections.forEach(s => sectionIO.observe(s));
 
-  // Reveal on scroll
   const revealIO = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); } });
   }, { threshold:0.12 });
   document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
 
-  // Back to top
   const backTop = document.getElementById('backTop');
   window.addEventListener('scroll', () => {
     backTop.classList.toggle('show', window.scrollY > 500);
   }, { passive:true });
   backTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  // Loading skeleton: oculta cuando cargan las fuentes (o a los 900ms como máximo)
+  const loader = document.getElementById('loader');
+  function hideLoader(){
+    if (!loader || loader.classList.contains('hide')) return;
+    loader.classList.add('hide');
+    document.body.style.overflow = '';
+    setTimeout(() => loader.remove(), 450);
+  }
+  document.body.style.overflow = 'hidden';
+  const fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  Promise.race([
+    fontsReady,
+    new Promise(resolve => setTimeout(resolve, 900))
+  ]).then(hideLoader);
+  setTimeout(hideLoader, 1400);
 
 })();
 </script>
