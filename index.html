@@ -5,273 +5,359 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Romi Estudio</title>
 <meta name="description" content="La existencia es un código, bien codificado. Portafolio de proyectos de Romi Estudio.">
-<meta name="theme-color" content="#0a0a12">
+<meta name="theme-color" content="#101210">
 
-<!-- PWA -->
-<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Romi%20Estudio%22,%22short_name%22:%22Romi%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%230a0a12%22,%22theme_color%22:%22%230a0a12%22}">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Romi Estudio">
+<meta property="og:description" content="La existencia es un código, bien codificado. Portafolio de proyectos de Romi Estudio.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Romi Estudio">
+<meta name="twitter:description" content="La existencia es un código, bien codificado.">
+
+<!-- Favicon (RE mark, naranja sobre carbón) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f08a3e'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-weight='700' font-size='26' fill='%231c1108' text-anchor='middle'%3ERE%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f08a3e'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-weight='700' font-size='26' fill='%231c1108' text-anchor='middle'%3ERE%3C/text%3E%3C/svg%3E">
+
+<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Romi%20Estudio%22,%22short_name%22:%22Romi%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23101210%22,%22theme_color%22:%22%23101210%22}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 
 <script type="module" src="https://unpkg.com/morphicons/element"></script>
 
 <style>
   :root{
-    --bg:#0a0a12;
-    --bg-elevated:#111120;
-    --surface:rgba(255,255,255,0.04);
-    --surface-border:rgba(255,255,255,0.09);
-    --surface-hover:rgba(255,255,255,0.07);
-    --text:#eceaf4;
-    --text-dim:#9b97b3;
-    --text-faint:#5f5c78;
-    --accent:#8b7bff;
-    --accent-bright:#a99bff;
-    --accent-dim:rgba(139,123,255,0.14);
-    --glow:rgba(139,123,255,0.35);
-    --radius:18px;
-    --maxw:960px;
+    --bg:#101210; --elevated:#181b19; --surface:#1c201d;
+    --fg:#f3f0e8; --muted:#a39d92; --faint:#8a847a;
+    --primary:#f08a3e; --primary-hover:#ff9d55; --primary-fg:#1c1108;
+    --border:#2e332f;
+    --font-sans:'Outfit', system-ui, sans-serif;
+    --font-display:'Syne', system-ui, sans-serif;
     color-scheme: dark;
   }
   :root[data-theme="light"]{
-    --bg:#f3f1fa;
-    --bg-elevated:#ffffff;
-    --surface:rgba(255,255,255,0.65);
-    --surface-border:rgba(30,20,60,0.1);
-    --surface-hover:rgba(255,255,255,0.85);
-    --text:#17152a;
-    --text-dim:#5c5876;
-    --text-faint:#9490ab;
-    --accent:#6f5bf0;
-    --accent-bright:#5a46db;
-    --accent-dim:rgba(111,91,240,0.1);
-    --glow:rgba(111,91,240,0.25);
+    --bg:#f4f1ea; --elevated:#fffdf8; --surface:#fffcf7;
+    --fg:#171611; --muted:#5c574e; --faint:#625d54;
+    --primary:#b3470e; --primary-hover:#9a3d0c; --primary-fg:#fff7f1;
+    --border:#e2dbd0;
     color-scheme: light;
   }
 
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
-  html,body{height:100%;}
+  html{scroll-behavior:smooth; scroll-padding-top:88px;}
   body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter', system-ui, sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-    transition:background .4s ease, color .4s ease;
-    padding-top:env(safe-area-inset-top,0px);
-    padding-bottom:env(safe-area-inset-bottom,0px);
+    background:var(--bg); color:var(--fg); font-family:var(--font-sans);
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    transition:background-color .35s ease, color .35s ease;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
   }
-  h1,h2,h3,.brand{font-family:'Space Grotesk', sans-serif;}
+  h1,h2,h3{font-family:var(--font-display); text-wrap:balance;}
+  button{font-family:inherit; cursor:pointer;}
+  ::selection{background:var(--primary); color:var(--primary-fg);}
+  :focus-visible{outline:2px solid var(--primary); outline-offset:3px;}
 
-  /* ambient background glow */
   .ambient{
     position:fixed; inset:0; z-index:-1; pointer-events:none;
     background:
-      radial-gradient(60vw 60vw at 15% -10%, var(--glow), transparent 60%),
-      radial-gradient(50vw 50vw at 110% 20%, rgba(255,120,200,0.08), transparent 55%);
-    opacity:.9;
+      radial-gradient(40rem 32rem at 0% -10%, color-mix(in srgb, var(--primary) 26%, transparent), transparent 68%),
+      radial-gradient(34rem 28rem at 100% 0%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 62%);
   }
+  .glass{
+    background:color-mix(in srgb, var(--elevated) 58%, transparent);
+    box-shadow:inset 0 1px 0 color-mix(in srgb, var(--fg) 10%, transparent);
+    backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%);
+  }
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(prefers-reduced-motion:reduce){*{transition:none !important; scroll-behavior:auto !important;} .reveal{opacity:1; transform:none;}}
 
-  /* nav */
+  main{max-width:1120px; margin:0 auto; padding:0 20px;}
+  @media(min-width:640px){main{padding:0 32px;}}
+
+  /* header */
   header{
-    position:fixed; top:env(safe-area-inset-top,0px); left:0; right:0; z-index:50;
+    position:fixed; inset-inline:0; top:0; z-index:40;
+    border-bottom:1px solid var(--border); border-top:2px solid var(--primary);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .header-inner{
+    max-width:1120px; margin:0 auto; height:64px; padding:0 20px;
     display:flex; align-items:center; justify-content:space-between;
-    padding:16px clamp(16px,5vw,48px);
-    backdrop-filter:blur(16px) saturate(150%);
-    -webkit-backdrop-filter:blur(16px) saturate(150%);
-    background:color-mix(in srgb, var(--bg) 70%, transparent);
-    border-bottom:1px solid var(--surface-border);
   }
-  .brand{display:flex; align-items:center; gap:10px; font-weight:600; font-size:1.05rem; letter-spacing:.01em; color:var(--text); text-decoration:none;}
+  @media(min-width:640px){.header-inner{padding:0 32px;}}
+  .brand{display:flex; align-items:center; gap:12px; color:var(--fg); text-decoration:none;}
   .brand-mark{
-    width:34px; height:34px; border-radius:10px;
-    background:linear-gradient(145deg, var(--accent), #5a46db);
-    display:flex; align-items:center; justify-content:center;
-    font-size:.8rem; font-weight:700; color:#fff; letter-spacing:.02em;
-    box-shadow:0 4px 18px var(--glow);
+    width:36px; height:36px; border-radius:10px; background:var(--primary);
+    display:grid; place-items:center; font-family:var(--font-display); font-weight:700;
+    font-size:.85rem; color:var(--primary-fg);
   }
-  nav{display:flex; align-items:center; gap:28px;}
-  nav a{color:var(--text-dim); text-decoration:none; font-size:.92rem; font-weight:500; transition:color .2s ease;}
-  nav a:hover{color:var(--text);}
-  .theme-toggle{
-    width:38px; height:38px; border-radius:50%;
-    border:1px solid var(--surface-border); background:var(--surface);
-    display:flex; align-items:center; justify-content:center; cursor:pointer;
-    color:var(--text); transition:background .2s ease, transform .2s ease;
+  .brand-name{font-family:var(--font-display); font-weight:600; font-size:1rem;}
+  nav.links{display:none; align-items:center; gap:28px;}
+  @media(min-width:768px){nav.links{display:flex;}}
+  nav.links a{color:var(--muted); text-decoration:none; font-size:.9rem; font-weight:500; transition:color .2s ease;}
+  nav.links a[aria-current="true"]{color:var(--fg);}
+  nav.links a:hover{color:var(--fg);}
+  .header-actions{display:flex; align-items:center; gap:8px;}
+  .icon-btn{
+    width:44px; height:44px; border-radius:999px; border:1px solid var(--border);
+    background:var(--surface); color:var(--fg); display:grid; place-items:center;
+    transition:background .2s ease, transform .2s ease;
   }
-  .theme-toggle:hover{background:var(--surface-hover);}
-  .theme-toggle:active{transform:scale(.92);}
-  .menu-btn{display:none; width:38px; height:38px; border-radius:50%; border:1px solid var(--surface-border); background:var(--surface); color:var(--text); align-items:center; justify-content:center; cursor:pointer;}
+  .icon-btn:hover{background:var(--elevated);}
+  .icon-btn:active{transform:scale(.94);}
+  .menu-btn{display:grid;}
+  @media(min-width:768px){.menu-btn{display:none;}}
+  [data-theme="light"] .icon-sun{display:block;} [data-theme="light"] .icon-moon{display:none;}
+  [data-theme="dark"] .icon-sun{display:none;} [data-theme="dark"] .icon-moon{display:block;}
 
-  .nav-group{display:flex; align-items:center; gap:18px;}
-
-  @media(max-width:720px){
-    nav.links{
-      position:fixed; top:0; right:0; height:100vh; width:min(78vw,300px);
-      background:var(--bg-elevated); border-left:1px solid var(--surface-border);
-      flex-direction:column; align-items:flex-start; justify-content:center; gap:28px;
-      padding:32px; transform:translateX(100%); transition:transform .35s cubic-bezier(.4,0,.2,1);
-      padding-top:calc(32px + env(safe-area-inset-top,0px));
-    }
-    nav.links.open{transform:translateX(0);}
-    nav.links a{font-size:1.1rem;}
-    .menu-btn{display:flex;}
-    .overlay{position:fixed; inset:0; background:rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:40;}
-    .overlay.open{opacity:1; pointer-events:auto;}
+  .mobile-menu{position:fixed; inset:0; z-index:50; display:none;}
+  .mobile-menu.open{display:block;}
+  .mobile-menu .backdrop{position:absolute; inset:0; background:color-mix(in srgb, var(--fg) 30%, transparent); border:none;}
+  .mobile-menu .panel{
+    position:absolute; top:0; right:0; height:100dvh; width:min(100%,22rem);
+    background:color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter:blur(18px);
+    border-left:1px solid var(--border); padding:32px; padding-top:calc(32px + env(safe-area-inset-top,0px));
+    display:flex; flex-direction:column;
   }
-
-  main{max-width:var(--maxw); margin:0 auto; padding:0 clamp(16px,5vw,48px);}
+  .mobile-menu .close-row{display:flex; justify-content:flex-end; margin-bottom:40px;}
+  .mobile-menu .panel a{
+    font-family:var(--font-display); font-size:1.8rem; font-weight:600; color:var(--fg);
+    text-decoration:none; padding:14px 0;
+  }
 
   /* hero */
-  .hero{
-    min-height:92vh; display:flex; flex-direction:column; justify-content:center;
-    padding-top:96px;
-  }
-  .eyebrow{color:var(--accent-bright); font-size:.85rem; font-weight:500; margin-bottom:18px;}
-  .hero h1{
-    font-size:clamp(2.4rem, 7vw, 4.4rem); line-height:1.04; font-weight:600;
-    max-width:14ch; letter-spacing:-.01em;
-  }
-  .hero .tagline{
-    margin-top:22px; font-size:clamp(1.05rem,2.6vw,1.3rem); color:var(--text-dim);
-    max-width:46ch; line-height:1.55; font-style:italic;
-  }
-  .hero-actions{display:flex; gap:14px; margin-top:38px; flex-wrap:wrap;}
+  .hero{padding-top:112px; padding-bottom:64px;}
+  @media(min-width:1024px){.hero{padding-top:128px; padding-bottom:80px;}}
+  .hero-grid{display:grid; gap:48px;}
+  @media(min-width:1024px){.hero-grid{grid-template-columns:minmax(0,1fr) 17rem; gap:64px; align-items:start;}}
+  .eyebrow{font-size:.85rem; font-weight:500; letter-spacing:.14em; color:var(--primary); text-transform:uppercase;}
+  .hero h1{font-size:clamp(2.6rem,9vw,5.5rem); line-height:.92; font-weight:600; margin-top:18px;}
+  .hero blockquote{margin-top:30px; max-width:36rem; border-left:2px solid var(--primary); padding-left:20px;}
+  .hero blockquote p{font-family:var(--font-display); font-size:clamp(1.1rem,3vw,1.4rem); line-height:1.35; font-style:normal;}
+  .hero-actions{margin-top:36px; display:flex; flex-wrap:wrap; gap:12px;}
+
   .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:13px 24px; border-radius:999px; font-weight:600; font-size:.95rem;
-    text-decoration:none; cursor:pointer; border:1px solid transparent;
-    transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+    display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 22px;
+    border-radius:999px; font-weight:600; font-size:.92rem; text-decoration:none; border:none;
+    transition:background .2s ease, transform .2s ease, color .2s ease;
   }
-  .btn:active{transform:scale(.97);}
-  .btn-primary{background:var(--accent); color:#fff; box-shadow:0 8px 24px var(--glow);}
-  .btn-primary:hover{background:var(--accent-bright); box-shadow:0 10px 30px var(--glow);}
-  .btn-ghost{background:var(--surface); color:var(--text); border-color:var(--surface-border);}
-  .btn-ghost:hover{background:var(--surface-hover);}
+  .btn:active{transform:scale(.96);}
+  .btn-primary{background:var(--primary); color:var(--primary-fg);}
+  .btn-primary:hover{background:var(--primary-hover);}
+  .btn-ghost{background:transparent; color:var(--fg); border:1px solid var(--border);}
+  .btn-ghost:hover{background:var(--surface);}
 
-  /* sections */
-  section{padding:96px 0;}
-  .section-head{margin-bottom:44px;}
-  .section-head .eyebrow{margin-bottom:10px;}
-  .section-head h2{font-size:clamp(1.7rem,4vw,2.3rem); font-weight:600; letter-spacing:-.01em;}
+  .studio-card{padding:20px; border-radius:18px; border:1px solid var(--border);}
+  .studio-card p.label{font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint);}
+  .studio-list{margin-top:18px; border-top:1px solid var(--border);}
+  .studio-list a{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    border-bottom:1px solid var(--border); padding:13px 0; text-decoration:none; color:var(--fg);
+  }
+  .studio-list .idx{font-family:var(--font-display); font-size:.72rem; color:var(--faint);}
+  .studio-list .ttl{font-weight:500; font-size:.92rem;}
+  .studio-list .dot{width:6px; height:6px; border-radius:50%; background:var(--faint); flex-shrink:0;}
+  .studio-list .dot.live{background:var(--primary);}
 
-  /* project cards */
-  .projects-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px;}
-  .card{
-    background:var(--surface); border:1px solid var(--surface-border);
-    border-radius:var(--radius); padding:26px;
-    backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);
-    display:flex; flex-direction:column; gap:14px;
-    transition:border-color .25s ease, background .25s ease, transform .25s ease;
+  /* principles */
+  .principles{border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:40px 0;}
+  .principles ol{display:grid; gap:24px; list-style:none;}
+  @media(min-width:768px){.principles ol{grid-template-columns:repeat(3,1fr);}}
+  .principles li{padding:20px; border-radius:18px; border:1px solid var(--border);}
+  .principles .idx{font-family:var(--font-display); font-size:.75rem; color:var(--primary);}
+  .principles h3{margin-top:10px; font-size:1.1rem; font-weight:600;}
+  .principles p{margin-top:8px; font-size:.88rem; line-height:1.5; color:var(--muted);}
+
+  section{padding:80px 0;}
+  @media(min-width:768px){section{padding:96px 0;}}
+  .section-head h2{font-size:clamp(1.9rem,5vw,2.8rem); font-weight:600; margin-top:10px;}
+  .section-sub{margin-top:10px; font-size:.88rem; color:var(--muted);}
+
+  /* filters */
+  .proj-top{display:flex; flex-direction:column; gap:20px;}
+  @media(min-width:640px){.proj-top{flex-direction:row; align-items:flex-end; justify-content:space-between;}}
+  .filters{display:flex; flex-wrap:wrap; gap:8px;}
+  .filter-btn{
+    height:44px; padding:0 18px; border-radius:999px; font-size:.88rem; font-weight:600;
+    border:1px solid var(--border); background:transparent; color:var(--muted);
   }
-  .card:hover{border-color:var(--accent); background:var(--surface-hover); transform:translateY(-3px);}
-  .card-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
-  .card-icon{
-    width:42px; height:42px; border-radius:11px; background:var(--accent-dim);
-    display:flex; align-items:center; justify-content:center; color:var(--accent-bright); flex-shrink:0;
+  .filter-btn.active{background:var(--primary); color:var(--primary-fg); border-color:var(--primary);}
+  .filter-btn:not(.active):hover{color:var(--fg);}
+
+  .proj-grid{margin-top:32px; display:grid; gap:16px;}
+  @media(min-width:640px){.proj-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(min-width:1200px){.proj-grid{grid-template-columns:repeat(3,1fr);}}
+
+  .proj-card{
+    border-radius:18px; border:1px solid var(--border); padding:24px;
+    display:flex; flex-direction:column; gap:14px; text-align:left; width:100%;
+    transition:border-color .2s ease, transform .2s ease; color:var(--fg);
   }
-  .card-type{font-size:.72rem; font-weight:600; color:var(--text-faint); text-transform:lowercase; letter-spacing:.02em;}
-  .card h3{font-size:1.15rem; font-weight:600;}
-  .card p{color:var(--text-dim); font-size:.92rem; line-height:1.55; flex:1;}
+  .proj-card:hover{border-color:var(--primary); transform:translateY(-2px);}
+  .proj-top-row{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .proj-icon{width:44px; height:44px; border-radius:12px; background:color-mix(in srgb, var(--primary) 15%, transparent); color:var(--primary); display:grid; place-items:center;}
+  .proj-type{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); font-weight:600;}
+  .proj-card h3{font-size:1.5rem; font-weight:600;}
+  .proj-card p.desc{color:var(--muted); font-size:.92rem; line-height:1.55; flex:1;}
+  .proj-status{display:inline-flex; align-items:center; gap:6px; font-size:.76rem; font-weight:600; width:fit-content;}
+  .proj-status .dot{width:7px; height:7px; border-radius:50%;}
+  .proj-status.live{color:var(--primary);} .proj-status.live .dot{background:var(--primary);}
+  .proj-status.dev{color:var(--faint);} .proj-status.dev .dot{background:var(--faint);}
   .tags{display:flex; flex-wrap:wrap; gap:8px;}
-  .tag{font-size:.74rem; color:var(--text-dim); background:var(--bg-elevated); border:1px solid var(--surface-border); padding:4px 10px; border-radius:999px;}
-  .card-link{
-    display:inline-flex; align-items:center; gap:6px; margin-top:6px;
-    color:var(--accent-bright); text-decoration:none; font-weight:600; font-size:.9rem;
-  }
-  .card-link morph-icon{transition:transform .2s ease;}
-  .card-link:hover morph-icon{transform:translateX(3px);}
+  .tag{font-size:.74rem; color:var(--muted); border:1px solid var(--border); padding:4px 11px; border-radius:999px;}
+  .proj-link{display:inline-flex; align-items:center; gap:6px; height:40px; width:fit-content; font-size:.88rem; font-weight:600; color:var(--primary); text-decoration:none;}
+  .proj-link morph-icon{transition:transform .2s ease;}
+  .proj-link:hover morph-icon{transform:translate(2px,-2px);}
+  .proj-soon{font-size:.88rem; font-weight:500; color:var(--faint); height:40px; display:flex; align-items:center;}
 
   /* about */
-  .about-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:start;}
-  .about-grid p{color:var(--text-dim); line-height:1.75; font-size:1.02rem; max-width:62ch;}
-  .about-grid p + p{margin-top:16px;}
-  .stat-card{
-    background:var(--surface); border:1px solid var(--surface-border); border-radius:var(--radius);
-    padding:22px; backdrop-filter:blur(20px);
-  }
-  .stat-card .num{font-family:'Space Grotesk',sans-serif; font-size:2.1rem; font-weight:600; color:var(--accent-bright);}
-  .stat-card .label{color:var(--text-dim); font-size:.88rem; margin-top:4px;}
-  .stat-list{display:flex; flex-direction:column; gap:14px;}
-  @media(max-width:760px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid{margin-top:36px; display:grid; gap:36px;}
+  @media(min-width:1024px){.about-grid{grid-template-columns:1.2fr .8fr;}}
+  .about-grid p{max-width:60ch; font-size:1rem; line-height:1.7; color:var(--muted);}
+  .about-grid p + p{margin-top:14px;}
+  .stat-grid{display:grid; gap:14px;}
+  @media(min-width:640px) and (max-width:1023px){.stat-grid{grid-template-columns:1fr 1fr;}}
+  .stat-card{border-radius:18px; border:1px solid var(--border); padding:22px;}
+  .stat-card dt{font-size:.88rem; color:var(--muted);}
+  .stat-card dd{margin-top:8px; font-family:var(--font-display); font-size:2.2rem; font-weight:600; color:var(--primary);}
 
   /* contact */
-  .contact-card{
-    background:var(--surface); border:1px solid var(--surface-border); border-radius:24px;
-    padding:clamp(28px,5vw,52px); text-align:center; backdrop-filter:blur(20px);
-    position:relative; overflow:hidden;
-  }
-  .contact-card::before{
-    content:''; position:absolute; inset:0;
-    background:radial-gradient(60% 60% at 50% 0%, var(--accent-dim), transparent 70%);
-    pointer-events:none;
-  }
-  .contact-card h2{font-size:clamp(1.5rem,4vw,2rem); font-weight:600; margin-bottom:12px;}
-  .contact-card p{color:var(--text-dim); max-width:46ch; margin:0 auto 28px; line-height:1.6;}
-  .contact-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .contact-card{border-radius:26px; border:1px solid var(--border); padding:40px 24px; position:relative; overflow:hidden;}
+  @media(min-width:640px){.contact-card{padding:56px 48px;}}
+  .contact-card h2{font-size:clamp(1.8rem,5vw,2.6rem); font-weight:600;}
+  .contact-card p{margin-top:14px; max-width:34rem; color:var(--muted); line-height:1.6;}
+  .contact-actions{margin-top:30px; display:flex; flex-wrap:wrap; gap:12px;}
 
-  footer{
-    text-align:center; padding:40px 24px calc(40px + env(safe-area-inset-bottom,0px));
-    color:var(--text-faint); font-size:.85rem;
+  footer{border-top:1px solid var(--border); padding:32px 20px; text-align:center; font-size:.85rem; color:var(--faint); padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));}
+
+  /* back to top */
+  #backTop{
+    position:fixed; right:18px; bottom:calc(18px + env(safe-area-inset-bottom,0px)); z-index:30;
+    width:48px; height:48px; border-radius:50%; border:1px solid var(--border);
+    background:var(--surface); color:var(--fg); display:grid; place-items:center;
+    opacity:0; pointer-events:none; transform:translateY(10px);
+    transition:opacity .25s ease, transform .25s ease, background .2s ease;
   }
+  #backTop.show{opacity:1; pointer-events:auto; transform:none;}
+  #backTop:hover{background:var(--elevated);}
 
-  @media(prefers-reduced-motion:reduce){*{transition:none !important; scroll-behavior:auto !important;}}
-
-  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
-  .reveal.in{opacity:1; transform:translateY(0);}
+  /* modal */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:60; display:none;
+    background:color-mix(in srgb, #000 55%, transparent);
+    align-items:flex-end; justify-content:center; padding:0;
+  }
+  .modal-overlay.open{display:flex;}
+  @media(min-width:640px){.modal-overlay{align-items:center; padding:24px;}}
+  .modal{
+    background:var(--elevated); border:1px solid var(--border);
+    width:100%; max-width:560px; max-height:88vh; overflow-y:auto;
+    border-radius:24px 24px 0 0; padding:28px 24px; padding-bottom:calc(28px + env(safe-area-inset-bottom,0px));
+    transform:translateY(24px); opacity:0; transition:transform .3s ease, opacity .3s ease;
+  }
+  @media(min-width:640px){.modal{border-radius:24px; padding:32px;}}
+  .modal-overlay.open .modal{transform:none; opacity:1;}
+  .modal-top{display:flex; align-items:flex-start; justify-content:space-between; gap:14px;}
+  .modal-icon{width:52px; height:52px; border-radius:14px; background:color-mix(in srgb, var(--primary) 15%, transparent); color:var(--primary); display:grid; place-items:center;}
+  .modal-close{width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--surface); color:var(--fg); display:grid; place-items:center; flex-shrink:0;}
+  .modal h3{margin-top:18px; font-size:1.8rem; font-weight:600;}
+  .modal .modal-status{margin-top:8px;}
+  .modal-shot{
+    margin-top:20px; aspect-ratio:16/9; border-radius:14px; border:1px dashed var(--border);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    color:var(--faint); font-size:.82rem; background:var(--surface);
+  }
+  .modal p.full-desc{margin-top:20px; color:var(--muted); line-height:1.65; font-size:.96rem;}
+  .modal .tags{margin-top:18px;}
+  .modal-actions{margin-top:24px; display:flex; flex-wrap:wrap; gap:12px;}
 </style>
 </head>
 <body>
 
 <div class="ambient"></div>
-<div class="overlay" id="overlay"></div>
 
-<header>
-  <a href="#inicio" class="brand">
-    <span class="brand-mark">RE</span>
-    Romi Estudio
-  </a>
-  <div class="nav-group">
-    <nav class="links" id="navLinks">
-      <a href="#inicio">Inicio</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#contacto">Contacto</a>
+<header class="glass">
+  <div class="header-inner">
+    <a href="#inicio" class="brand">
+      <span class="brand-mark">RE</span>
+      <span class="brand-name">Romi Estudio</span>
+    </a>
+    <nav class="links" id="navLinks" aria-label="Secciones">
+      <a href="#inicio" data-nav="inicio">Inicio</a>
+      <a href="#proyectos" data-nav="proyectos">Proyectos</a>
+      <a href="#sobre-mi" data-nav="sobre-mi">Sobre mí</a>
+      <a href="#contacto" data-nav="contacto">Contacto</a>
     </nav>
-    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-      <morph-icon name="sun" size="18"></morph-icon>
-    </button>
-    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">
-      <morph-icon name="menu" size="18"></morph-icon>
-    </button>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Cambiar tema">
+        <morph-icon class="icon-sun" name="sun" size="18"></morph-icon>
+        <morph-icon class="icon-moon" name="moon" size="18"></morph-icon>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">
+        <morph-icon name="menu" size="18"></morph-icon>
+      </button>
+    </div>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="backdrop" id="menuBackdrop" aria-label="Cerrar menú"></button>
+  <nav class="panel" aria-label="Secciones">
+    <div class="close-row">
+      <button class="icon-btn" id="menuClose" aria-label="Cerrar menú"><morph-icon name="x" size="18"></morph-icon></button>
+    </div>
+    <a href="#inicio">Inicio</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</div>
 
 <main>
 
   <section class="hero" id="inicio">
-    <div class="eyebrow">Desarrollador independiente</div>
-    <h1>Romi Estudio</h1>
-    <p class="tagline">"La existencia es un código, bien codificado."</p>
-    <div class="hero-actions">
-      <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
-      <a href="#contacto" class="btn btn-ghost">Contactar</a>
+    <div class="hero-grid">
+      <div class="reveal">
+        <p class="eyebrow">Desarrollador independiente</p>
+        <h1>Romi<br>Estudio</h1>
+        <blockquote><p>"La existencia es un código, bien codificado."</p></blockquote>
+        <div class="hero-actions">
+          <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+          <a href="#contacto" class="btn btn-ghost">Contactar</a>
+        </div>
+      </div>
+      <div class="reveal glass studio-card">
+        <p class="label">En el estudio</p>
+        <div class="studio-list" id="studioList"></div>
+      </div>
     </div>
   </section>
 
+  <section class="principles reveal" aria-label="Forma de trabajar">
+    <ol id="principlesList"></ol>
+  </section>
+
   <section id="proyectos">
-    <div class="section-head reveal">
-      <div class="eyebrow">Trabajo</div>
-      <h2>Proyectos</h2>
+    <div class="proj-top reveal">
+      <div class="section-head">
+        <p class="eyebrow">Trabajo</p>
+        <h2>Proyectos</h2>
+        <p class="section-sub" id="projStats"></p>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrar proyectos" id="filters">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="app">Apps</button>
+        <button class="filter-btn" data-filter="web">Web</button>
+      </div>
     </div>
-    <div class="projects-grid" id="projectsGrid"></div>
+    <div class="proj-grid" id="projGrid"></div>
   </section>
 
   <section id="sobre-mi">
     <div class="section-head reveal">
-      <div class="eyebrow">Perfil</div>
+      <p class="eyebrow">Perfil</p>
       <h2>Sobre mí</h2>
     </div>
     <div class="about-grid reveal">
@@ -279,25 +365,26 @@
         <p>Diseño y construyo aplicaciones web pensadas para resolver problemas concretos, con atención al detalle en cada interacción.</p>
         <p>Cada proyecto bajo Romi Estudio tiene su propia identidad visual, pero comparte una misma forma de trabajar: código limpio, interfaces modernas y soluciones listas para producción.</p>
       </div>
-      <div class="stat-list">
+      <dl class="stat-grid">
         <div class="stat-card">
-          <div class="num" id="statProjects">0</div>
-          <div class="label">Proyectos activos</div>
+          <dt>Proyectos</dt>
+          <dd id="statProjects">0</dd>
         </div>
         <div class="stat-card">
-          <div class="num">100%</div>
-          <div class="label">Independiente</div>
+          <dt>Independiente</dt>
+          <dd>100%</dd>
         </div>
-      </div>
+      </dl>
     </div>
   </section>
 
   <section id="contacto">
-    <div class="contact-card reveal">
+    <div class="contact-card glass reveal">
+      <p class="eyebrow">Contacto</p>
       <h2>Hablemos</h2>
       <p>¿Tenés un proyecto en mente o querés saber más sobre alguna app? Escribime.</p>
       <div class="contact-actions">
-        <a href="#" class="btn btn-primary" id="emailLink">
+        <a href="#" class="btn btn-primary" id="emailLink" target="_blank" rel="noopener">
           <morph-icon name="mail" size="16"></morph-icon> Enviar correo
         </a>
         <a href="#" class="btn btn-ghost" id="igLink" target="_blank" rel="noopener">
@@ -309,9 +396,27 @@
 
 </main>
 
-<footer>
-  © <span id="year"></span> Romi Estudio. Todos los proyectos, en un solo lugar.
-</footer>
+<footer>© <span id="year"></span> Romi Estudio. Todos los proyectos, en un solo lugar.</footer>
+
+<button id="backTop" aria-label="Volver arriba"><morph-icon name="chevron-up" size="20"></morph-icon></button>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" id="modalBox">
+    <div class="modal-top">
+      <div class="modal-icon" id="modalIcon"><morph-icon name="globe" size="22"></morph-icon></div>
+      <button class="modal-close" id="modalClose" aria-label="Cerrar"><morph-icon name="x" size="16"></morph-icon></button>
+    </div>
+    <h3 id="modalTitle"></h3>
+    <div class="modal-status" id="modalStatus"></div>
+    <div class="modal-shot" id="modalShot">
+      <morph-icon name="image" size="26"></morph-icon>
+      <span>Captura próximamente</span>
+    </div>
+    <p class="full-desc" id="modalDesc"></p>
+    <div class="tags" id="modalTags"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -319,118 +424,206 @@
 
   /* ============ EDITAR AQUÍ ============ */
   const contact = {
-    email: "romiestudioos@gmail.com",
-    instagram: "romiestudios"
+    email: "franci.ribera@icloud.com",
+    instagram: "https://www.instagram.com/franci___2001?obrf=MXRoaDFzZmxmcmloZQ==",
+    instagramHandle: "franci___2001"
   };
+
+  const principles = [
+    { title: "Código limpio", text: "Estructura clara, sin ruido, fácil de mantener." },
+    { title: "Interfaces modernas", text: "Cada interacción pensada para usarse de verdad." },
+    { title: "Listo para producción", text: "Sale del estudio y se puede usar." }
+  ];
 
   const projects = [
     {
-      title: "VAULT",
+      slug: "vault", title: "VAULT", type: "app",
       description: "Gestor de contraseñas seguro con cifrado local.",
-      type: "app",
-      link: "https://vault-v13-1.vercel.app",
+      fullDescription: "Gestor de contraseñas con cifrado local: tus credenciales nunca salen de tu dispositivo sin pasar por cifrado. Pensado para uso diario, rápido y sin fricción.",
+      href: "https://vault-v13-1.vercel.app",
       tags: ["Seguridad", "PWA"]
     },
     {
-      title: "Recibo",
+      slug: "recibo", title: "Recibo", type: "app",
       description: "Rastreador de suscripciones y gastos recurrentes.",
-      type: "app",
-      link: "https://resivo-taupe.vercel.app",
+      fullDescription: "Llevá el control de todas tus suscripciones y pagos recurrentes en un solo lugar: fechas de cobro, montos y recordatorios para que nada te agarre desprevenido.",
+      href: "https://resivo-taupe.vercel.app",
       tags: ["Finanzas", "PWA"]
     },
     {
-      title: "Bóveda de Documentos",
+      slug: "boveda", title: "Bóveda de Documentos", type: "app",
       description: "Almacenamiento cifrado de documentos personales.",
-      type: "app",
-      link: "#",
+      fullDescription: "Guardá documentos personales importantes con cifrado de extremo a extremo. Acceso rápido cuando lo necesitás, protegido el resto del tiempo.",
+      href: null,
       tags: ["Seguridad", "Documentos"]
     },
     {
-      title: "Sorteo RD",
+      slug: "sorteo-rd", title: "Sorteo RD", type: "web",
       description: "Venta y gestión de números para sorteos.",
-      type: "web",
-      link: "#",
+      fullDescription: "Plataforma para organizar sorteos: venta de números, seguimiento de compradores y gestión completa del evento desde un solo panel.",
+      href: null,
       tags: ["Ventas", "PWA"]
     },
     {
-      title: "ButtonLab",
+      slug: "buttonlab", title: "ButtonLab", type: "web",
       description: "Editor visual para diseñar y exportar componentes de UI.",
-      type: "web",
-      link: "https://grok-workspace-amber-three.vercel.app/",
+      fullDescription: "Editor visual para diseñar botones y componentes de interfaz, con exportación lista para usar en tus propios proyectos.",
+      href: "https://grok-workspace-amber-three.vercel.app/",
       tags: ["UI", "Herramienta"]
     }
   ];
   /* ====================================== */
 
-  // Render projects
-  const grid = document.getElementById('projectsGrid');
-  const frag = document.createDocumentFragment();
-  projects.forEach(p => {
-    const isApp = p.type === 'app';
-    const card = document.createElement('div');
-    card.className = 'card reveal';
-    card.innerHTML = `
-      <div class="card-top">
-        <div class="card-icon"><morph-icon name="${isApp ? 'smartphone' : 'globe'}" size="20"></morph-icon></div>
-        <span class="card-type">${isApp ? 'app' : 'web'}</span>
-      </div>
-      <h3>${p.title}</h3>
-      <p>${p.description}</p>
-      <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-      <a class="card-link" href="${p.link}" ${p.link !== '#' ? 'target="_blank" rel="noopener"' : ''}>
-        ${isApp ? 'Descargar' : 'Visitar'} <morph-icon name="arrow-right" size="14"></morph-icon>
-      </a>
-    `;
-    frag.appendChild(card);
+  const icon = (type) => type === 'app' ? 'smartphone' : 'globe';
+  let currentFilter = 'todos';
+
+  // Hero studio list
+  const studioList = document.getElementById('studioList');
+  projects.forEach((p, i) => {
+    const a = document.createElement('a');
+    a.href = `#${p.slug}`;
+    a.innerHTML = `<span style="display:flex;align-items:baseline;gap:12px;min-width:0;">
+        <span class="idx">${String(i+1).padStart(2,'0')}</span>
+        <span class="ttl">${p.title}</span>
+      </span><span class="dot ${p.href ? 'live' : ''}"></span>`;
+    studioList.appendChild(a);
   });
-  grid.appendChild(frag);
-  document.getElementById('statProjects').textContent = projects.length;
+
+  // Principles
+  const principlesList = document.getElementById('principlesList');
+  principles.forEach((p, i) => {
+    const li = document.createElement('li');
+    li.className = 'reveal';
+    li.innerHTML = `<p class="idx">${String(i+1).padStart(2,'0')}</p><h3>${p.title}</h3><p>${p.text}</p>`;
+    principlesList.appendChild(li);
+  });
+
+  // Project stats
+  function updateStats(){
+    const published = projects.filter(p => p.href).length;
+    document.getElementById('projStats').textContent = `${published} publicados · ${projects.length - published} en camino`;
+    document.getElementById('statProjects').textContent = projects.length;
+  }
+  updateStats();
+
+  // Project grid
+  const grid = document.getElementById('projGrid');
+  function renderGrid(){
+    grid.innerHTML = '';
+    const visible = projects.filter(p => currentFilter === 'todos' || p.type === currentFilter);
+    visible.forEach(p => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'proj-card glass reveal in';
+      card.dataset.slug = p.slug;
+      card.innerHTML = `
+        <div class="proj-top-row">
+          <div class="proj-icon"><morph-icon name="${icon(p.type)}" size="20"></morph-icon></div>
+          <span class="proj-type">${p.type}</span>
+        </div>
+        <h3>${p.title}</h3>
+        <p class="desc">${p.description}</p>
+        <span class="proj-status ${p.href ? 'live' : 'dev'}"><span class="dot"></span>${p.href ? 'En vivo' : 'En desarrollo'}</span>
+        <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        ${p.href
+          ? `<span class="proj-link">${p.type === 'app' ? 'Descargar' : 'Visitar'} <morph-icon name="arrow-up-right" size="14"></morph-icon></span>`
+          : `<span class="proj-soon">Pronto</span>`}
+      `;
+      card.addEventListener('click', () => openModal(p));
+      grid.appendChild(card);
+    });
+  }
+  renderGrid();
+
+  document.getElementById('filters').addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderGrid();
+  });
+
+  // Modal
+  const overlay = document.getElementById('modalOverlay');
+  function openModal(p){
+    document.getElementById('modalIcon').innerHTML = `<morph-icon name="${icon(p.type)}" size="22"></morph-icon>`;
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalStatus').innerHTML =
+      `<span class="proj-status ${p.href ? 'live' : 'dev'}"><span class="dot"></span>${p.href ? 'En vivo' : 'En desarrollo'}</span>`;
+    document.getElementById('modalDesc').textContent = p.fullDescription;
+    document.getElementById('modalTags').innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+    document.getElementById('modalActions').innerHTML = p.href
+      ? `<a class="btn btn-primary" href="${p.href}" target="_blank" rel="noopener">${p.type === 'app' ? 'Descargar' : 'Visitar'} <morph-icon name="arrow-up-right" size="14"></morph-icon></a>`
+      : `<span class="proj-soon">Disponible pronto</span>`;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeMenu(); } });
 
   // Contact links
-  document.getElementById('emailLink').href = `mailto:${contact.email}`;
-  document.getElementById('igLink').href = `https://instagram.com/${contact.instagram}`;
+  document.getElementById('emailLink').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contact.email)}`;
+  document.getElementById('igLink').href = contact.instagram;
 
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // Mobile menu
+  const mobileMenu = document.getElementById('mobileMenu');
   const menuBtn = document.getElementById('menuBtn');
-  const navLinks = document.getElementById('navLinks');
-  const overlay = document.getElementById('overlay');
-  function closeMenu(){
-    navLinks.classList.remove('open');
-    overlay.classList.remove('open');
-  }
-  menuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    overlay.classList.toggle('open');
-  });
-  overlay.addEventListener('click', closeMenu);
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  function openMenu(){ mobileMenu.classList.add('open'); menuBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+  function closeMenu(){ mobileMenu.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+  menuBtn.addEventListener('click', openMenu);
+  document.getElementById('menuBackdrop').addEventListener('click', closeMenu);
+  document.getElementById('menuClose').addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
   // Theme toggle (persisted)
   const root = document.documentElement;
-  const themeToggle = document.getElementById('themeToggle');
   function applyTheme(theme){
     root.setAttribute('data-theme', theme);
-    themeToggle.innerHTML = theme === 'light'
-      ? '<morph-icon name="moon" size="18"></morph-icon>'
-      : '<morph-icon name="sun" size="18"></morph-icon>';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f4f1ea' : '#101210');
     try { localStorage.setItem('romi-theme', theme); } catch(e) {}
   }
   let saved = null;
   try { saved = localStorage.getItem('romi-theme'); } catch(e) {}
   const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  applyTheme(saved || (prefersLight ? 'light' : 'dark'));
-  themeToggle.addEventListener('click', () => {
+  applyTheme(saved === 'light' || saved === 'dark' ? saved : (prefersLight ? 'light' : 'dark'));
+  document.getElementById('themeToggle').addEventListener('click', () => {
     applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
   });
 
+  // Active section nav highlight
+  const navLinks = document.querySelectorAll('[data-nav]');
+  const sections = ['inicio','proyectos','sobre-mi','contacto'].map(id => document.getElementById(id)).filter(Boolean);
+  const sectionIO = new IntersectionObserver((entries) => {
+    const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible && visible.target.id) {
+      navLinks.forEach(a => a.removeAttribute('aria-current'));
+      const match = document.querySelector(`[data-nav="${visible.target.id}"]`);
+      if (match) match.setAttribute('aria-current','true');
+    }
+  }, { rootMargin:'-30% 0px -55% 0px', threshold:[0.15,0.4,0.7] });
+  sections.forEach(s => sectionIO.observe(s));
+
   // Reveal on scroll
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); } });
+  }, { threshold:0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
+
+  // Back to top
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', window.scrollY > 500);
+  }, { passive:true });
+  backTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
 })();
 </script>
